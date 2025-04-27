@@ -34,6 +34,7 @@ import { Layout } from './components/Layout';
 import { Home } from './pages/Home';  // Страница с таблицей слов
 import { Game } from './pages/Game';  // Страница с игрой
 import './App.css';
+import { NotFound } from './pages/404';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />  {/* Главная страница с таблицей */}
           <Route path="game" element={<Game />} />  {/* Страница с игрой */}
+          <Route path='*' element={<NotFound />} /> {/* Страница 404 */}
         </Route>
       </Routes>
     </Router>
