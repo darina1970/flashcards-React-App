@@ -5,7 +5,7 @@ import wordsData from '../words.json';  // Импортируем начальн
 import styles from '../styles/Home.module.css'
 
 
-export const Home = () => {
+const Home = () => {
   // Храним состояние слов в родительском компоненте
   const [words, setWords] = useState(wordsData);
 
@@ -25,4 +25,6 @@ export const Home = () => {
     </div>
   );
 }
+
+export default Home;
 

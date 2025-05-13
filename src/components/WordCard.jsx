@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from '../styles/WordCard.module.css';
 
-function WordCard({ word, index, totalCount, onNext, onPrev }) {
-  const [isFlipped, setIsFlipped] = useState(false);
+function WordCard({ word, index, totalCount, onNext, onPrev, incrementStudiedWords, isFlipped, setIsFlipped }) {
+  // const [isFlipped, setIsFlipped] = useState(false);
+  const buttonRef = useRef(null);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
+
+  const handleTranslationClick = () => {
+    incrementStudiedWords(index);
+    setIsFlipped(false);
+  };
+
+  useEffect(() => {
+    if (buttonRef.current && !isFlipped) {
+      buttonRef.current.focus();
+    }
+  },[word, isFlipped]);
 
   return (
     <div className={styles.cardContainer}>
@@ -26,7 +38,7 @@ function WordCard({ word, index, totalCount, onNext, onPrev }) {
               <div className={styles.cardFront}>
                 <p><strong>English: </strong>{word.english}</p>
                 <p><strong>Transcription: </strong>{word.transcription}</p>
-                <button onClick={handleFlip}>Проверить</button>
+                <button className={styles.button} ref={buttonRef} onClick={handleFlip}>Проверить</button>
               </div>
               
               {/* Обратная сторона карточки */}
@@ -34,7 +46,7 @@ function WordCard({ word, index, totalCount, onNext, onPrev }) {
                 <p><strong>English: </strong>{word.english}</p>
                 <p><strong>Transcription: </strong>{word.transcription}</p>
                 <p><strong>Translation: </strong>{word.russian}</p>
-                <button onClick={handleFlip}>Готово</button>
+                <button onClick={handleTranslationClick}>Готово</button>
               </div>
             </div>
             <button
@@ -54,31 +66,6 @@ function WordCard({ word, index, totalCount, onNext, onPrev }) {
       ) : null}
 
     </div>
-
-    // <div className={styles.card}>
-    //   <div className={`${styles.cardInner} ${isFlipped ? styles.flipped : ''}`}>
-    //     {/* Лицевая сторона карточки */}
-    //     <div className={styles.cardFront}>
-    //       <p><strong>English: </strong>{word.english}</p>
-    //       <p><strong>Transcription: </strong>{word.transcription}</p>
-    //       <button onClick={handleFlip}>Проверить</button>
-    //     </div>
-        
-    //     {/* Обратная сторона карточки */}
-    //     <div className={styles.cardBack}>
-    //       <p><strong>English: </strong>{word.english}</p>
-    //       <p><strong>Transcription: </strong>{word.transcription}</p>
-    //       <p><strong>Translation: </strong>{word.russian}</p>
-    //     </div>
-    //   </div>
-      
-    //   {/* Кнопки навигации */}
-    //   <div className={styles.navigation}>
-    //     <button onClick={onPrev} disabled={index === 0}>Предыдущее</button>
-    //     <span>{index + 1} из {totalCount}</span>
-    //     <button onClick={onNext} disabled={index === totalCount - 1}>Следующее</button>
-    //   </div>
-    // </div>
   );
 }
 
