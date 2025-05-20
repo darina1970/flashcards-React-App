@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styles from '../styles/WordCard.module.css';
 
 function WordCard({ word, index, totalCount, onNext, onPrev, incrementStudiedWords, isFlipped, setIsFlipped }) {
-  // const [isFlipped, setIsFlipped] = useState(false);
   const buttonRef = useRef(null);
 
   const handleFlip = () => {
